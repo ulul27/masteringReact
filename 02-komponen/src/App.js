@@ -6,6 +6,7 @@ import ToDoIncrement from "./components/ToDoIncrement"
 function App() {
       //  deklarasi state todos
       // todos awalnya adalah array
+      
       const [todos, setToDos] = useState([
         "Belajar React Fundameental",
         "Ngoding Sampai Bisa"
