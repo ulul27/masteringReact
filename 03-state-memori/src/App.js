@@ -1,26 +1,76 @@
-import { useState } from 'react';
+// TIC TAC TOU
 
-export default function FeedbackForm() {
-  const [isSent, setIsSent] = useState(false);
-  if (isSent) {
-    return <h1>Terima kasih!</h1>;
-  } else {
-    // eslint-disable-next-line
-    const [message, setMessage] = useState('');
-    return (
-      <form onSubmit={e => {
-        e.preventDefault();
-        alert(`Mengirim: "${message}"`);
-        setIsSent(true);
-      }}>
-        <textarea
-          placeholder="Pesan masukan"
-          value={message}
-          onChange={e => setMessage(e.target.value)}
-        />
-        <br />
-        <button type="submit">Kirim</button>
-      </form>
-    );
+import {useState} from 'react';
+
+export function Square({ value, onSquareClick }) {
+  return (
+  <>
+    <button className="square" onClick={onSquareClick}>{value}</button>
+  </>
+)
+}
+
+export default function Board() {
+  const [xisNext, setXisNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    if(squares[i]){
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xisNext) {
+      nextSquares[i] = 'X';      
+    } else {
+      nextSquares[i] = 'O';
+    }
+    setSquares(nextSquares);
+    setXisNext(!xisNext);
   }
+  return (
+    <>
+    <div className="board-row">
+    <Square 
+    value={squares[0]}
+    onSquareClick={() => handleClick(0)}
+    />
+    <Square 
+    value={squares[1]}
+    onSquareClick={() => handleClick(1)}
+    />
+    <Square 
+    value={squares[2]}
+    onSquareClick={() => handleClick(2)}
+    />
+    </div>
+    <div className="board-row">
+    <Square
+    value={squares[3]}
+    onSquareClick={() => handleClick(3)}
+    />
+    <Square 
+    value={squares[4]}
+    onSquareClick={() => handleClick(4)}
+    />
+    <Square
+    value={squares[5]}
+    onSquareClick={() => handleClick(5)}
+    />
+    </div>
+    <div className="board-row">
+    <Square
+    value={squares[6]}
+    onSquareClick={() => handleClick(6)}
+    />
+    <Square 
+    value={squares[7]}
+    onSquareClick={() => handleClick(7)}
+    />
+    <Square 
+    value={squares[8]}
+    onSquareClick={() => handleClick(8)}
+    />
+    </div>
+    </>
+  )
 }
